@@ -1,0 +1,221 @@
+/*Insert Color Variables Here:*/
+
+:root {
+
+    --steel-blue: #4381c1ff;
+    --oxford-blue: #0b132bff;
+    --spring-green: #04f06aff;
+
+    }
+
+    /*General Styling*/
+html, body {
+    margin: 0;
+    height: 100%;
+    min-height: 100%;
+  }
+
+body{
+    font-family: 'Chivo', sans-serif;
+    display:flex;
+    flex-direction:column;
+    font-weight:300;
+}
+
+#flex-layout{
+    display:flex;
+    height:100vh;
+}
+
+/* Header Styling */
+header{
+    background-color:var(--steel-blue);
+    text-align:center;
+    color:white;
+    padding:2rem;
+    margin:0;
+}
+header > * {
+    margin:0;
+}
+header #h1-title {
+    font-size:3rem;
+    font-weight:300;
+    
+}
+header #h2-title{
+    font-size:1.2rem;
+    font-weight:300;
+}
+
+/* Sidebar Styling */
+
+#sidebar{
+    display:flex;
+    flex-flow:column;
+    flex:1;
+    box-shadow: 4px 0 4px rgba(0,0,0,0.2);
+    font-weight:300;
+    font-family: 'Chivo', Arial, Helvetica, sans-serif;
+}
+
+.sidebar-title, #project-title{
+    
+    margin:0;    
+    padding:1rem;
+    box-shadow:0 2px 4px rgba(0,0,0,0.2);
+    color:var(--steel-blue);
+    font-weight:300;
+    
+}
+.projects-list{
+    display:flex;
+    flex-flow:column;
+    padding:0;
+    margin:0;
+}
+.projects-list-item{
+    list-style-type:none;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 1rem;
+    border-bottom:1px solid #ddd; 
+    font-size:0.9rem;
+    transition: all linear 0.1s;
+    color:#666;}
+.projects-list-item:hover{
+    background-color:var(--steel-blue);
+    color:white;
+}
+.projects-list-item:last-child{
+    border:none;
+    box-shadow:0 2px 4px rgba(0,0,0,0.2);
+
+}
+.delete-btn, .edit-btn{
+    border:none;
+    background:none;
+    font-weight:800;
+    font-size:1rem;
+    transition: all linear 0.1s;
+    color:#aaa;
+    padding:0;
+    margin:0;
+    cursor:pointer;
+}
+.delete-btn:hover{
+    color:coral;
+}
+
+#add-project-btn{
+    border:none;
+    padding:1rem;
+    color:var(--steel-blue);
+    transition: all linear 0.2s;
+    font-size:1rem;
+    background-color:white;
+    border:1px solid var(--steel-blue);
+}
+#add-project-btn:hover{
+    background-color:var(--steel-blue);
+    color:white;
+    
+    
+}
+
+
+
+/* Main Content Styling */
+#main-content{
+    display:flex;
+    flex-flow:column;
+    flex:4;
+    padding:2rem;
+
+}
+
+/* Tasks */
+.task{
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px solid #ddd;
+    align-items:center;
+    font-size:1.1rem;
+    transition:all linear 0.1s;
+    height:2rem;
+}
+.task:hover{
+    background-color:var(--steel-blue);
+    color:white;
+}
+.task:hover .date{
+    background-color:var(--steel-blue);
+    color:white;
+}
+.task .edit-btn:hover{
+    color:white;
+}
+.task-description, .task-controls{
+    display:flex;
+    align-items:center;
+}
+.checkbox-hidden{
+    position:absolute;
+    left:-100vw;
+}
+.custom-checkbox{
+    height:1rem;
+    width:1rem;
+    border:1px solid #ddd;
+    border-radius:50%;
+    
+}
+.checkbox-hidden:checked + .custom-checkbox{
+    background-color:var(--steel-blue);
+    color:white;
+    content:'V'
+}
+.checkbox-hidden:checked ~ .task-label {
+    text-decoration:line-through;
+}
+
+.task-controls > * {
+    margin-left:1rem;
+}
+.task-description{
+    flex:8;
+    margin-left:1rem;
+}
+.task-controls{
+    justify-content:space-evenly;
+    flex:2;
+}
+.task-label {
+    margin-left:1rem;
+    width:100%;
+}
+.date {
+    color:#666;
+    font-family: 'Chivo', sans-serif;
+    border:none;
+    transition: all linear 0.1s;
+}
+
+
+/*Portrait Phone*/
+@media (max-width: 575.98px) {
+
+}
+
+/* Small devices (landscape phones, less than 768px)*/
+@media (max-width: 767.98px) {
+}
+
+/* Medium devices (tablets, less than 992px)*/
+@media (max-width: 991.98px) {
+}
+
+/*Large devices (desktops, less than 1200px)*/
+@media (max-width: 1199.98px) {
+}

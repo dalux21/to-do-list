@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Chivo:wght@300;400&display=swap" rel="stylesheet"> 
+    <meta charset="utf-8" />
+    <title>Get it Done</title>
+    <link rel="stylesheet" href="../src/style.css" >
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+  </head>
+  <body>
+    <!--Header-->
+      <header>
+        <h1 id="h1-title">Get It Done</h1>
+        <h2 id="h2-title">Too Busy? Sort Things Out!</h2>
+      </header>
+      <div id="flex-layout">
+
+        <!--Side Bar-->
+      <div id="sidebar">
+        <h2 class="sidebar-title">Today</h2>
+        <ul id="today-projects-list" class="projects-list">
+          <li class="projects-list-item">
+            <h4 class="project-name">Example Project 1Example Project 1</h4>
+            <button class="material-icons delete-btn">delete</button>
+          </li>
+          <li class="projects-list-item">
+            <h4 class="project-name">Example Project 1Example Project 1</h4>
+            <button class="material-icons delete-btn">delete</button>
+          </li>
+          </ul>
+        <h2 class="sidebar-title">All Projects</h2>
+        
+
+        <!--Projects-->
+          <ul id="all-projects-list" class="projects-list">
+            <li class="projects-list-item">
+              <h4 class="project-name">Example Project 1Example Project 1</h4>
+              <button class="material-icons delete-btn">delete</button>
+            </li>
+            <li class="projects-list-item">
+              <h4 class="project-name">Example Project 1</h4>
+              
+              <button class="material-icons delete-btn">delete</button>
+            </li>
+            <li class="projects-list-item">
+              <h4 class="project-name">Exe ct 1</h4>
+              <button class="material-icons delete-btn">delete</button>
+            </li>
+          </ul>
+          <input type="button" id="add-project-btn" value="Add Project"></input>
+      </div>
+      <!--Main Content-->
+      <div id="main-content">
+        <h2 id="project-title">Project X</h2>
+        <ul id="tasks-list">
+          <li class="task">
+            <div class="task-description">
+              <input type="checkbox" class="checkbox-hidden" name="task-1" id="task-1"><span class="custom-checkbox"></span></input>
+              <label for="task-1" class="task-label">Task description</label>
+            </div>
+            <div class="task-controls">
+                <input type="date" class="date" name="task-1-date"></input>
+                <button class="material-icons edit-btn">edit</button><button class="material-icons delete-btn">delete</button>
+              </div>
+          </li>
+          <li class="task">
+            <div class="task-description">
+              <input type="checkbox" class="checkbox-hidden" name="task-2" id="task-2"><span class="custom-checkbox"></span></input>
+              <label for="task-2" class="task-label">Task description</label>
+            </div>
+            <div class="task-controls">
+              <input type="date" class="date" name="task-2-date"></input>
+              <button class="material-icons edit-btn">edit</button><button class="material-icons delete-btn">delete</button>
+            </div>
+          </li>
+          <li class="task">
+                <div class="task-description">
+                  <input type="checkbox" class="checkbox-hidden" name="task-3" id="task-3"><span class="custom-checkbox"></span></input>
+                  <label for="task-3" class="task-label">Task description</label>
+                </div>
+                <div class="task-controls">
+                  <input type="date" class="date" name="task-3-date"></input>
+                  <button class="material-icons edit-btn">edit</button><button class="material-icons delete-btn">delete</button>
+                </div>
+          </li>
+          <li class="task">
+              <div class="task-description">
+                <input type="checkbox" class="checkbox-hidden" name="task-4" id="task-4"><span class="custom-checkbox"></span></input>
+                <label for="task-4" class="task-label">Task description</label>
+              </div>
+              <div class="task-controls">
+                <input type="date" class="date" name="task-4-date"></input>
+                <button class="material-icons edit-btn">edit</button><button class="material-icons delete-btn">delete</button>
+              </div>
+           </li>
+        </ul>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
