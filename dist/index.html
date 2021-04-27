@@ -27,13 +27,12 @@
             <button class="material-icons delete-btn">delete</button>
           </li>
           <li class="projects-list-item">
-            <h4 class="project-name">Example Project 1Example Project 1</h4>
-            <button class="material-icons delete-btn">delete</button>
+            <h4 class="project-name" id="project-1-name">Example Project 1Example Project 1</h4>
+            <button class="material-icons delete-btn" id="delete-project-1">delete</button>
           </li>
           </ul>
         <h2 class="sidebar-title">All Projects</h2>
         
-
         <!--Projects-->
           <ul id="all-projects-list" class="projects-list">
             <li class="projects-list-item">
@@ -50,7 +49,18 @@
               <button class="material-icons delete-btn">delete</button>
             </li>
           </ul>
-          <input type="button" id="add-project-btn" value="Add Project"></input>
+          <button id="add-project-btn" class="sidebar-btn" >Add Project</button>
+          <form id="add-project-form">
+            <div class="form-group">
+            <label for="project-name-input" class="sidebar-label">Name</label>
+            <input type="text" id="project-name-input" name="project-name-input" placeholder="E.g. Website update..."></input>
+            </div>
+            <div class="form-group">
+            <button id="create-project-btn" class="sidebar-btn" value="Create">Create</button>
+            <input type="reset" id="cancel-create-project" class="sidebar-btn"value="cancel"></input>
+          </div>
+
+        </form>
       </div>
       <!--Main Content-->
       <div id="main-content">
@@ -62,7 +72,7 @@
               <label for="task-1" class="task-label">Task description</label>
             </div>
             <div class="task-controls">
-                <input type="date" class="date" name="task-1-date"></input>
+                <input type="date" class="date" name="task-1-date" ></input>
                 <button class="material-icons edit-btn">edit</button><button class="material-icons delete-btn">delete</button>
               </div>
           </li>
@@ -96,6 +106,22 @@
                 <button class="material-icons edit-btn">edit</button><button class="material-icons delete-btn">delete</button>
               </div>
            </li>
+           <li class="task-edit">
+              <label for="task-5-title-input">Task name:</label>
+              <input type="text" class="task-title-input" name="task-title-input" id="task-title-input"></input>
+              <label for="task-5-priority-select">Priority:</label>
+              <select name="priority-list" id="task-priority-select " class="priority-list">
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+
+              <label for="task-date-due">Due:</label>
+              <input type="date" class="date" name="task-5-date-due" id="task-date-due"></input>
+              
+            <button id="add-task-btn">Add</button>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
