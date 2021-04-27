@@ -108,22 +108,55 @@ header #h2-title{
     color:coral;
 }
 
-#add-project-btn{
+.form-group{
+    display:flex;
+    align-items:center;
+    margin-top:1rem;
+    font-weight:600;
+    color:var(--steel-blue);
+}
+.form-group > *{
+    margin:0 0.2rem;
+}
+
+.sidebar-btn{
     border:none;
-    padding:1rem;
+    padding:0.5rem;
     color:var(--steel-blue);
     transition: all linear 0.2s;
     font-size:1rem;
     background-color:white;
-    border:1px solid var(--steel-blue);
+    outline:1px solid var(--steel-blue);
+    width:100%;
 }
-#add-project-btn:hover{
+#project-name-input{
+    flex:1;
+    
+}
+.sidebar-btn:hover{
     background-color:var(--steel-blue);
-    color:white;
-    
-    
+    color:white;    
 }
-
+#cancel-create-project{
+    background-color:white;
+    color:coral;
+    outline:1px solid coral;
+}
+#cancel-create-project:hover{
+    background-color:coral;
+    color:white;
+}
+.task-edit{
+    display:flex;
+    padding:1rem;
+    align-items:center;
+    font-weight:600;
+    background-color:#fafafa;
+    color:var(--steel-blue);
+}
+.task-edit > * {
+    margin:0 0.3rem;
+}
 
 
 /* Main Content Styling */
@@ -202,6 +235,22 @@ header #h2-title{
     transition: all linear 0.1s;
 }
 
+#add-task-btn{
+    background-color:var(--steel-blue);
+    color:white;
+    border:none;
+    padding:0.3rem 1.5rem;
+    transition: all linear 0.2s;
+    font-weight:600;
+    border-radius:3px;
+}
+#add-task-btn:hover{
+    background-color:white;
+    color:var(--steel-blue);
+    border:1px solid var(--steel-blue);
+    box-sizing:border-box;
+    
+}
 
 /*Portrait Phone*/
 @media (max-width: 575.98px) {
