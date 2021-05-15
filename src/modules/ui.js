@@ -1,6 +1,7 @@
+import createProject from './projects.js'
 //DOM Elements
 
-const DOMElements = {
+ const DOMElements = {
     //Sidebar elements
     todayProjectsList : document.getElementById('today-projects-list'),
     allProjectsList : document.getElementById('all-projects-list'),
@@ -22,6 +23,11 @@ const DOMElements = {
 
 }
 
-//Event Listeners
-addProjectBtn.addEventListener('click', showNewProjectForm)
-createProjectBtn.addEventListener('click', projects.createProject)
+const eventListeners = (function(){
+    DOMElements.addProjectBtn.addEventListener('click', createProject)
+    DOMElements.createProjectBtn.addEventListener('click', function(){})
+    DOMElements.addTaskBtn.addEventListener('click', function(){})
+})();
+
+export default DOMElements
+export {eventListeners} 
