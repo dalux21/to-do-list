@@ -1,4 +1,4 @@
+import userInterface from './modules/ui.js'
+import projectsLogic from './modules/projects.js'
 
-import DOMElements from './modules/ui.js'
-import createProject from './modules/projects.js'
-import eventListeners from './modules/ui.js'
+userInterface.renderSidebar()

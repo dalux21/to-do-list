@@ -83,6 +83,7 @@ header #h2-title{
     border-bottom:1px solid #ddd; 
     font-size:0.9rem;
     transition: all linear 0.1s;
+    cursor:pointer; 
     color:#666;}
 .projects-list-item:hover{
     background-color:var(--steel-blue);
@@ -133,6 +134,14 @@ header #h2-title{
     flex:1;
     
 }
+.flex-column {
+    display:flex;
+    flex-flow:column wrap
+}
+.hide{
+    display:none;
+}
+
 .sidebar-btn:hover{
     background-color:var(--steel-blue);
     color:white;    
