@@ -189,11 +189,10 @@ header #h2-title{
 }
 .task:hover{
     outline:1px solid var(--steel-blue);
-    color:white;
 }
 
 .task .edit-btn:hover{
-    color:white;
+    color:var(--steel-blue);
 }
 .task-description, .task-controls{
     display:flex;
@@ -215,6 +214,7 @@ input[type="checkbox"] + label {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  user-select:none;
 }
 
 input[type="checkbox"] + label:last-child { margin-bottom: 0; }
@@ -258,7 +258,11 @@ input[type="checkbox"]:checked + label {
 }
 .task-controls{
     justify-content:space-evenly;
-    flex:2;
+    flex:4;
+}
+
+.priority{
+    font-size:1rem;
 }
 .task-label {
     margin-left:1rem;

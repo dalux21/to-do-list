@@ -20,7 +20,7 @@ const projectsLogic = (function(){
 
     const projectsLibrary = []
     const tasksLibrary = []
-    const today = format(new Date(), 'P');
+    const today = format(new Date(), 'y-MM-dd');
     
     //All tasks due today will be grouped into this project called "Today"
     function createTodayProject(){
@@ -39,7 +39,7 @@ const projectsLogic = (function(){
         const projectName = projectNameInput
 
         //Each new Project has a default Task for the 4th of May
-        const defaultTask = taskFactory('', projectID, 'Default Task', '04/05/2022', 'medium', false)
+        const defaultTask = taskFactory('', projectID, 'Default Task', '2022-05-04', 'medium', false)
  
         //Create New project and push to Library
         const newProject = projectFactory(projectID,projectName)
