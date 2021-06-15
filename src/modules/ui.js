@@ -1,4 +1,5 @@
 import projectsLogic from './projects.js'
+import format from '../../node_modules/date-fns/format'
 //DOM Elements
 const userInterface = (function(){
 
@@ -66,7 +67,9 @@ function renderSidebar() {
                                         ${project.projectName}</h4>`
 
             //Add Event Listener to the newly created list element
-            newListElement.addEventListener('click', renderProject)
+            newListElement.addEventListener('click', function(){
+                renderProject(this.dataset.projectId)
+            })
 
             //List Projects on sidebar
             const deleteButton = document.createElement('button');
@@ -83,9 +86,8 @@ function renderSidebar() {
 }
 
 //Show project tasks on the right when project is clicked
-function renderProject(){
-
-    const selectedProjectID = this.dataset.projectId
+function renderProject(projectID){
+    const selectedProjectID = projectID
     const selectedProject = projectsLogic.getProjectsLibrary().find(x => {
        return x.projectID === selectedProjectID
     })
@@ -97,7 +99,8 @@ function listTasks(projectID) {
     DOMElements.tasksList.innerHTML = ''
     projectsLogic.getTasksLibrary().forEach(task => {
 
-        if (task.parentProjectID === projectID)
+        if ((task.parentProjectID === projectID ||
+             (projectID === 'PROJ_today' && task.isToday)))
         {
         const taskListItem = document.createElement('li')
         const taskIdForDom = projectsLogic.getTasksLibrary().indexOf(task)
@@ -106,12 +109,13 @@ function listTasks(projectID) {
         taskListItem.dataset.parentProjectId = task.parentProjectID
         taskListItem.dataset.taskId = task.taskID
         taskListItem.innerHTML = `<div class="task-description">
+        
                <input type="checkbox" id="box-${taskIdForDom}">
                <label for="box-${taskIdForDom}">${task.taskName}</label>
              </div>
              <div class="task-controls">
              <span class="priority">Priority: ${task.priority} </span> 
-               <input type="date" class="date" value="${task.dueDate}" name="task-${taskIdForDom}-date"></input>
+               <span>${format(new Date(task.dueDate), 'dd/MM/y')}</span>
                <button class="material-icons edit-btn" id="edit-task-${task.taskID}">edit</button><button class="material-icons delete-btn id="delete-task-${task.taskID}">delete</button>
              </div>`    
 
@@ -121,21 +125,18 @@ taskEditButtons.forEach(editButton => {
     editButton.addEventListener('click', showTaskEditBox)
 })
 
-//Attach event listeners to listed task buttons.
 
-} })
+}})
 
 }
 
 function showTaskEditBox(e) {
 
     //ID of task to Edit
-    const selectedTask = e.target
     const taskID = e.target.id.substring(e.target.id.length - 14);
     console.log(taskID)
 
     //Get li container of task to Edit
-    const listItemOfTask = e.target.parentNode.parentNode
     
     //Create edit Box
     const list = DOMElements.tasksList
@@ -145,8 +146,8 @@ function showTaskEditBox(e) {
     const editBoxTemplate = `<label for="${taskID}-title-input">Task name:</label>
     <input type="text" class="task-title-input" name="${taskID}-title-input" id="${taskID}-title-input"></input>
     <label for="${taskID}-priority-select">Priority:</label>
-    <select name="priority-list" id="${taskID}-priority-select " class="priority-list">
-        <option value="high">High</option>
+    <select name="priority-list" id="${taskID}-priority-select" class="priority-list">
+        <option value="high" selected="selected">High</option>
         <option value="medium">Medium</option>
         <option value="low">Low</option>
       </select>
@@ -154,10 +155,30 @@ function showTaskEditBox(e) {
     <label for="${taskID}-date-due">Due:</label>
     <input type="date" class="date" name="${taskID}-date-due" id="${taskID}-date-due"></input>
     
-  <button id="add-${taskID}-btn">Apply</button>`;
+  <button id="edit-${taskID}-btn">Apply</button>`;
 
   editBox.innerHTML = editBoxTemplate  
   list.insertBefore(editBox, list.firstElementChild.nextSibling)
+
+  //add Event Listener to apply button
+  const applyEditsBtn = document.getElementById(`edit-${taskID}-btn`);
+
+  applyEditsBtn.addEventListener('click', function(){
+    
+    const selectedTask = projectsLogic.getTasksLibrary().find(x => {
+        return x.taskID === taskID
+     })
+     const newTaskName = document.getElementById(taskID + '-title-input').value
+     const newTaskPriority = document.getElementById(taskID + '-priority-select').value
+     const newTaskDueDate = document.getElementById(taskID + '-date-due').value
+     
+     projectsLogic.editTask(selectedTask, newTaskName, newTaskPriority, newTaskDueDate)     
+     
+     renderProject(selectedTask.parentProjectID)
+
+
+  });
+
 
 
   

@@ -1,18 +1,23 @@
 import {format} from '../../node_modules/date-fns'
+
 //Project Factory
-function projectFactory(projectID, projectName, defaultTask) {
+function projectFactory(projectID, projectName) {
     return {projectID, projectName}
     }
 
-function taskFactory(taskID, parentProjectID, taskName, dueDate, priority, isTaskDone){
+function taskFactory(taskID, parentProjectID, taskName, dueDate, priority, isTaskDone, isToday){
     taskID = 'TASK_' + Math.random().toString(36).substr(2,9)
+    if (dueDate === format(new Date(), 'y-MM-dd')) isToday = true;
+   
     return {
         taskID,
         parentProjectID, 
         taskName, 
         dueDate, 
         priority, 
-        isTaskDone}
+        isTaskDone,
+        isToday
+        }
 }
 
 //Main IIFE dealing with projects Logic.
@@ -21,12 +26,12 @@ const projectsLogic = (function(){
     const projectsLibrary = []
     const tasksLibrary = []
     const today = format(new Date(), 'y-MM-dd');
-    
     //All tasks due today will be grouped into this project called "Today"
-    function createTodayProject(){
+    
     const projectToday = projectFactory('PROJ_today', 'Today')
     projectsLibrary.push(projectToday)
-    }
+
+    
     
     //Creates a Project 
     //projectsLogic.createProject(projectNameInput)
@@ -39,13 +44,23 @@ const projectsLogic = (function(){
         const projectName = projectNameInput
 
         //Each new Project has a default Task for the 4th of May
-        const defaultTask = taskFactory('', projectID, 'Default Task', '2022-05-04', 'medium', false)
+        const defaultTask = taskFactory('', projectID, 'Default Task', '2021-06-15', 'medium', false, false)
  
         //Create New project and push to Library
         const newProject = projectFactory(projectID,projectName)
         projectsLibrary.push(newProject)
         tasksLibrary.push(defaultTask)
+
         
+    }
+
+    function editTask(selectedTask, newTaskName, newTaskPriority, newTaskDueDate){
+        
+         selectedTask.taskName = newTaskName
+         selectedTask.priority = newTaskPriority
+         selectedTask.dueDate = newTaskDueDate
+
+
     }
 
 
@@ -55,7 +70,8 @@ const projectsLogic = (function(){
 return {
     getProjectsLibrary, 
     getTasksLibrary,
-    createProject
+    createProject,
+    editTask
     }
 
 })()
