@@ -59,6 +59,23 @@ const projectsLogic = (function(){
          selectedTask.taskName = newTaskName
          selectedTask.priority = newTaskPriority
          selectedTask.dueDate = newTaskDueDate
+         updateTodayProject()
+
+
+    }
+ 
+    function updateTodayProject() {
+        tasksLibrary.forEach(task => {
+            if (task.dueDate === today) task.parentProjectID = 'PROJ_today'
+            
+        })
+    }
+
+    function createTask(projectID, newTaskName, newTaskPriority, newTaskDueDate) {
+        createdTask = taskFactory(taskID, projectID, newTaskName, newTaskDueDate, newTaskPriority, false, false)
+        tasksLibrary.push(createdTask)
+
+        /// LEFT HERE. TASK CREATION ///
 
 
     }
@@ -71,7 +88,8 @@ return {
     getProjectsLibrary, 
     getTasksLibrary,
     createProject,
-    editTask
+    editTask,
+    createTask
     }
 
 })()

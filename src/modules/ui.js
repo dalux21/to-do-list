@@ -35,9 +35,14 @@ const eventListeners = (function(){
         const projectNameInput = DOMElements.newProjectNameInput.value
         projectsLogic.createProject(projectNameInput)
         renderSidebar()
+    });
+    DOMElements.addTaskBtn.addEventListener('click', function(){
+        const projectID = DOMElements.projectTitle.innerText
+        const newTaskName = DOMElements.taskTitleInput.value
+        const newTaskPriority = DOMElements.taskPrioritySelect.value
+        const newTaskDueDate = DOMElements.taskDateDueInput.value
+        projectsLogic.createTask(projectID, newTaskName, newTaskPriority, newTaskDueDate)
     })
-
-    DOMElements.addTaskBtn.addEventListener('click', function(){})
    
     })()
 
@@ -144,16 +149,16 @@ function showTaskEditBox(e) {
     editBox.classList.add('task-edit');
 
     const editBoxTemplate = `<label for="${taskID}-title-input">Task name:</label>
-    <input type="text" class="task-title-input" name="${taskID}-title-input" id="${taskID}-title-input"></input>
+    <input type="text" class="task-title-input" name="${taskID}-title-input" id="${taskID}-title-input" required></input>
     <label for="${taskID}-priority-select">Priority:</label>
-    <select name="priority-list" id="${taskID}-priority-select" class="priority-list">
+    <select name="priority-list" id="${taskID}-priority-select" class="priority-list" required>
         <option value="high" selected="selected">High</option>
         <option value="medium">Medium</option>
         <option value="low">Low</option>
       </select>
 
     <label for="${taskID}-date-due">Due:</label>
-    <input type="date" class="date" name="${taskID}-date-due" id="${taskID}-date-due"></input>
+    <input type="date" class="date" name="${taskID}-date-due" id="${taskID}-date-due"  required>date-</input>
     
   <button id="edit-${taskID}-btn">Apply</button>`;
 
