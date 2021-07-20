@@ -1,4 +1,5 @@
-import {format} from '../../node_modules/date-fns'
+
+import {format, parseISO} from '../../node_modules/date-fns'
 
 //Project Factory
 function projectFactory(projectID, projectName) {
@@ -72,8 +73,9 @@ const projectsLogic = (function(){
     }
 
     function createTask(projectID, newTaskName, newTaskPriority, newTaskDueDate) {
-        createdTask = taskFactory(taskID, projectID, newTaskName, newTaskDueDate, newTaskPriority, false, false)
+        const createdTask = taskFactory('a', projectID, newTaskName, newTaskDueDate, newTaskPriority, false, false)
         tasksLibrary.push(createdTask)
+    
 
         /// LEFT HERE. TASK CREATION ///
 

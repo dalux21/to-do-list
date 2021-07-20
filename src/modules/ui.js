@@ -1,5 +1,6 @@
 import projectsLogic from './projects.js'
 import format from '../../node_modules/date-fns/format'
+import { parseISO } from '../../node_modules/date-fns'
 //DOM Elements
 const userInterface = (function(){
 
@@ -18,6 +19,7 @@ const userInterface = (function(){
     tasksList : document.getElementById('tasks-list'),
 
     //Add Task to Project Elements
+    addTaskBox : document.getElementById('add-task-box'),
     taskTitleInput : document.getElementById('task-title-input'),
     taskPrioritySelect : document.getElementById('task-priority-select'),
     taskDateDueInput : document.getElementById('task-date-due'),
@@ -37,11 +39,13 @@ const eventListeners = (function(){
         renderSidebar()
     });
     DOMElements.addTaskBtn.addEventListener('click', function(){
-        const projectID = DOMElements.projectTitle.innerText
+        const projectID = DOMElements.projectTitle.dataset.projectId
         const newTaskName = DOMElements.taskTitleInput.value
         const newTaskPriority = DOMElements.taskPrioritySelect.value
+        console.log(newTaskPriority)
         const newTaskDueDate = DOMElements.taskDateDueInput.value
         projectsLogic.createTask(projectID, newTaskName, newTaskPriority, newTaskDueDate)
+        renderProject(projectID)
     })
    
     })()
@@ -92,11 +96,14 @@ function renderSidebar() {
 
 //Show project tasks on the right when project is clicked
 function renderProject(projectID){
+    DOMElements.addTaskBox.classList.remove('hide');
+    
     const selectedProjectID = projectID
     const selectedProject = projectsLogic.getProjectsLibrary().find(x => {
        return x.projectID === selectedProjectID
     })
     DOMElements.projectTitle.innerText = selectedProject.projectName
+    DOMElements.projectTitle.dataset.projectId = selectedProjectID
     listTasks(selectedProjectID)
 }
 
@@ -141,6 +148,12 @@ function showTaskEditBox(e) {
     const taskID = e.target.id.substring(e.target.id.length - 14);
     console.log(taskID)
 
+    //Get Task Object: 
+
+    const selectedTask = projectsLogic.getTasksLibrary().find(x => {
+        return x.taskID === taskID
+     })
+
     //Get li container of task to Edit
     
     //Create edit Box
@@ -148,8 +161,8 @@ function showTaskEditBox(e) {
     const editBox = document.createElement('li');
     editBox.classList.add('task-edit');
 
-    const editBoxTemplate = `<label for="${taskID}-title-input">Task name:</label>
-    <input type="text" class="task-title-input" name="${taskID}-title-input" id="${taskID}-title-input" required></input>
+    const editBoxTemplate = `<label for="${taskID}-title-input">Edit Task ${selectedTask.taskName}:</label>
+    <input type="text" class="task-title-input" name="${taskID}-title-input" id="${taskID}-title-input" value="${selectedTask.taskName}" required></input>
     <label for="${taskID}-priority-select">Priority:</label>
     <select name="priority-list" id="${taskID}-priority-select" class="priority-list" required>
         <option value="high" selected="selected">High</option>
@@ -158,21 +171,21 @@ function showTaskEditBox(e) {
       </select>
 
     <label for="${taskID}-date-due">Due:</label>
-    <input type="date" class="date" name="${taskID}-date-due" id="${taskID}-date-due"  required>date-</input>
+    <input type="date" class="date" name="${taskID}-date-due" id="${taskID}-date-due" value="${format(parseISO(selectedTask.dueDate), 'y-MM-dd')}"  required></input>
     
   <button id="edit-${taskID}-btn">Apply</button>`;
 
+
   editBox.innerHTML = editBoxTemplate  
-  list.insertBefore(editBox, list.firstElementChild.nextSibling)
+  
+  list.appendChild(editBox)
 
   //add Event Listener to apply button
   const applyEditsBtn = document.getElementById(`edit-${taskID}-btn`);
 
   applyEditsBtn.addEventListener('click', function(){
     
-    const selectedTask = projectsLogic.getTasksLibrary().find(x => {
-        return x.taskID === taskID
-     })
+
      const newTaskName = document.getElementById(taskID + '-title-input').value
      const newTaskPriority = document.getElementById(taskID + '-priority-select').value
      const newTaskDueDate = document.getElementById(taskID + '-date-due').value

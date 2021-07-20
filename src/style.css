@@ -138,9 +138,7 @@ header #h2-title{
     display:flex;
     flex-flow:column wrap
 }
-.hide{
-    display:none;
-}
+
 
 .sidebar-btn:hover{
     background-color:var(--steel-blue);
@@ -292,6 +290,9 @@ flex:4;
     
 }
 
+.hide{
+    display:none;
+}
 /*Portrait Phone*/
 @media (max-width: 575.98px) {
 
