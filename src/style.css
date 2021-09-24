@@ -199,7 +199,7 @@ header #h2-title{
 
 
 /*Checkboxes styles*/
-input[type="checkbox"] { display: none; }
+input[type="checkbox"] {opacity:0; }
 
 input[type="checkbox"] + label {
   display: block;

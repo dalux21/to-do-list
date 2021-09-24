@@ -75,11 +75,13 @@ const projectsLogic = (function(){
     function createTask(projectID, newTaskName, newTaskPriority, newTaskDueDate) {
         const createdTask = taskFactory('a', projectID, newTaskName, newTaskDueDate, newTaskPriority, false, false)
         tasksLibrary.push(createdTask)
-    
 
-        /// LEFT HERE. TASK CREATION ///
+    }
 
-
+    function deleteTask(selectedTask){
+        tasksLibrary.forEach(task => {
+            if (task.taskID === selectedTask.taskID) tasksLibrary.splice(tasksLibrary.indexOf(task),1)
+        })
     }
 
 
@@ -91,7 +93,8 @@ return {
     getTasksLibrary,
     createProject,
     editTask,
-    createTask
+    createTask,
+    deleteTask
     }
 
 })()

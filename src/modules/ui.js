@@ -42,7 +42,7 @@ const eventListeners = (function(){
         const projectID = DOMElements.projectTitle.dataset.projectId
         const newTaskName = DOMElements.taskTitleInput.value
         const newTaskPriority = DOMElements.taskPrioritySelect.value
-        console.log(newTaskPriority)
+        
         const newTaskDueDate = DOMElements.taskDateDueInput.value
         projectsLogic.createTask(projectID, newTaskName, newTaskPriority, newTaskDueDate)
         renderProject(projectID)
@@ -116,19 +116,18 @@ function listTasks(projectID) {
         {
         const taskListItem = document.createElement('li')
         const taskIdForDom = projectsLogic.getTasksLibrary().indexOf(task)
-        console.log(projectsLogic.getTasksLibrary())
         taskListItem.classList.add('task')
         taskListItem.dataset.parentProjectId = task.parentProjectID
         taskListItem.dataset.taskId = task.taskID
         taskListItem.innerHTML = `<div class="task-description">
         
-               <input type="checkbox" id="box-${taskIdForDom}">
-               <label for="box-${taskIdForDom}">${task.taskName}</label>
+               <input type="checkbox" id="box-${task.taskID}" class="task-checkbox"">
+               <label for="box-${task.taskID}">${task.taskName}</label>
              </div>
              <div class="task-controls">
              <span class="priority">Priority: ${task.priority} </span> 
                <span>${format(new Date(task.dueDate), 'dd/MM/y')}</span>
-               <button class="material-icons edit-btn" id="edit-task-${task.taskID}">edit</button><button class="material-icons delete-btn id="delete-task-${task.taskID}">delete</button>
+               <button class="material-icons edit-btn" id="edit-task-${task.taskID}">edit</button><button class="material-icons delete-btn" id="delete-task-${task.taskID}">delete</button>
              </div>`    
 
 DOMElements.tasksList.appendChild(taskListItem)
@@ -136,31 +135,57 @@ const taskEditButtons = document.querySelectorAll('.edit-btn')
 taskEditButtons.forEach(editButton => {
     editButton.addEventListener('click', showTaskEditBox)
 })
+const deleteTaskButtons = document.querySelectorAll('.delete-btn')
+deleteTaskButtons.forEach(deleteBtn => {
+    deleteBtn.addEventListener('click', deleteTask)
+})
+const listedTasksCheckBoxes = document.querySelectorAll('.task-checkbox')
 
+listedTasksCheckBoxes.forEach(checkbox => {
+
+    if (task.isTaskDone) checkbox.checked = true
+    else checkbox.checked = false;
+    checkbox.addEventListener('change', function(){
+            if (checkbox.checked) task.isTaskDone = true;
+            else task.isTaskDone = false;
+
+    })
+})
 
 }})
 
+}
+
+function findTask(e){
+        //ID of task to Delete
+        const taskID = e.target.id.substring(e.target.id.length-14);
+    
+        return projectsLogic.getTasksLibrary().find(x => {
+            return x.taskID === taskID
+        })
+        
+}
+
+function deleteTask(e){
+    //ID of task to Delete
+    const selectedTask = findTask(e)
+    projectsLogic.deleteTask(selectedTask)
+    renderProject(selectedTask.parentProjectID)
 }
 
 function showTaskEditBox(e) {
 
     //ID of task to Edit
     const taskID = e.target.id.substring(e.target.id.length - 14);
-    console.log(taskID)
-
-    //Get Task Object: 
-
-    const selectedTask = projectsLogic.getTasksLibrary().find(x => {
-        return x.taskID === taskID
-     })
+    const selectedTask = findTask(e)
 
     //Get li container of task to Edit
     
-    //Create edit Box
     const list = DOMElements.tasksList
     const editBox = document.createElement('li');
     editBox.classList.add('task-edit');
 
+    //Create edit Box
     const editBoxTemplate = `<label for="${taskID}-title-input">Edit Task ${selectedTask.taskName}:</label>
     <input type="text" class="task-title-input" name="${taskID}-title-input" id="${taskID}-title-input" value="${selectedTask.taskName}" required></input>
     <label for="${taskID}-priority-select">Priority:</label>
